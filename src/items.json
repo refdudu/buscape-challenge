@@ -1,55 +1,55 @@
 [
-  {
-    "id": 2321312,
-    "name": "Smartphone Apple iPhone 7 128GB",
-    "images": [
-      "https://m.media-amazon.com/images/I/41Zbbl4P+LL._AC_SX522_.jpg",
-      "https://m.media-amazon.com/images/I/71ETP82VQIL._AC_SX522_.jpg",
-      "https://m.media-amazon.com/images/I/81lT81mFUHL._AC_SX522_.jpg"
-    ],
-    "price": {
-      "value": 3509.1,
-      "installments": 10,
-      "installmentValue": 389.9
+    {
+        "id": 2321312,
+        "name": "Smartphone Apple iPhone 7 128GB",
+        "images": [
+            "https://m.media-amazon.com/images/I/41Zbbl4P+LL._AC_SX522_.jpg",
+            "https://m.media-amazon.com/images/I/71ETP82VQIL._AC_SX522_.jpg",
+            "https://m.media-amazon.com/images/I/81lT81mFUHL._AC_SX522_.jpg"
+        ],
+        "price": {
+            "value": 3509.1,
+            "installments": 10,
+            "installmentValue": 389.9
+        }
+    },
+    {
+        "id": 9971,
+        "name": "Smart TV Samsung Série 4 UN32J4300AG 32 polegadas LED Plana",
+        "images": [
+            "https://m.media-amazon.com/images/I/61rrln27nzL._AC_SX522_.jpg"
+        ],
+        "price": {
+            "value": 1139.9,
+            "installments": 10,
+            "installmentValue": 134.11
+        }
+    },
+    {
+        "id": 6717131,
+        "name": "Câmera Digital Canon EOS Rebel T5i 18.0 Megapixels",
+        "images": [
+            "https://m.media-amazon.com/images/I/41T5App0QML._AC_SY450_.jpg",
+            "https://m.media-amazon.com/images/I/41S6XyTMvCL._AC_SY450_.jpg",
+            "https://m.media-amazon.com/images/I/41vA5Q+DPZL._AC_SY450_.jpg"
+        ],
+        "price": {
+            "value": 1999.2,
+            "installments": 10,
+            "installmentValue": 235.2
+        }
+    },
+    {
+        "id": 6717131,
+        "name": "Lenovo IdeaPad 310 80UH0004BR Intel Core i7-6500U 2.5 GHz 8192 MB 1024 GB",
+        "images": [
+            "https://m.media-amazon.com/images/I/41dX9KECFWL._AC_SY355_.jpg",
+            "https://m.media-amazon.com/images/I/71C9z5vNDhL._AC_SY355_.jpg"
+        ],
+        "price": {
+            "value": 2599.0,
+            "installments": 10,
+            "installmentValue": 259.9
+        }
     }
-  },
-  {
-    "id": 9971,
-    "name": "Smart TV Samsung Série 4 UN32J4300AG 32 polegadas LED Plana",
-    "images": [
-      "https://m.media-amazon.com/images/I/61rrln27nzL._AC_SX522_.jpg"
-    ],
-    "price": {
-      "value": 1139.9,
-      "installments": 10,
-      "installmentValue": 134.11
-    }
-  },
-  {
-    "id": 6717131,
-    "name": "Câmera Digital Canon EOS Rebel T5i 18.0 Megapixels",
-    "images": [
-      "https://m.media-amazon.com/images/I/41T5App0QML._AC_SY450_.jpg",
-      "https://m.media-amazon.com/images/I/41S6XyTMvCL._AC_SY450_.jpg",
-      "https://m.media-amazon.com/images/I/41vA5Q+DPZL._AC_SY450_.jpg"
-    ],
-    "price": {
-      "value": 1999.2,
-      "installments": 10,
-      "installmentValue": 235.2
-    }
-  },
-  {
-    "id": 6717131,
-    "name": "Lenovo IdeaPad 310 80UH0004BR Intel Core i7-6500U 2.5 GHz 8192 MB 1024 GB",
-    "images": [
-      "https://m.media-amazon.com/images/I/41dX9KECFWL._AC_SY355_.jpg",
-      "https://m.media-amazon.com/images/I/71C9z5vNDhL._AC_SY355_.jpg"
-    ],
-    "price": {
-      "value": 2599.0,
-      "installments": 10,
-      "installmentValue": 259.9
-    }
-  }
 ]

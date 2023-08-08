@@ -3,63 +3,63 @@ import { useMemo, useState } from "react";
 import { ImageSelector } from "./ImageSelector";
 
 interface ProductCardProps {
-  product: ProductI;
-  handleAddInCart: () => void;
+    product: ProductI;
+    handleAddInCart: () => void;
 }
 
 export function ProductCard({ product, handleAddInCart }: ProductCardProps) {
-  const [image] = product.images;
-  const [selectedImage, setSelectedImage] = useState(image);
+    const [image] = product.images;
+    const [selectedImage, setSelectedImage] = useState(image);
 
-  const { installmentValue, totalValue } = useMemo(() => {
-    const formatOptions = {
-      style: "currency",
-      currency: "BRL",
-    };
-    const format = (value: number) =>
-      new Intl.NumberFormat("pt-BR", formatOptions).format(value);
+    const { installmentValue, totalValue } = useMemo(() => {
+        const formatOptions = {
+            style: "currency",
+            currency: "BRL"
+        };
+        const format = (value: number) =>
+            new Intl.NumberFormat("pt-BR", formatOptions).format(value);
 
-    const installmentValue = format(product.price.installmentValue);
-    const totalValue = format(product.price.value);
+        const installmentValue = format(product.price.installmentValue);
+        const totalValue = format(product.price.value);
 
-    return {
-      installmentValue,
-      totalValue,
-    };
-  }, []);
+        return {
+            installmentValue,
+            totalValue
+        };
+    }, []);
 
-  return (
-    <div className="flex-row w-full bg-white flex md:flex-col justify-center items-center flex-1 h-full rounded-md">
-      <div className="group w-56 h-48 flex items-center justify-center relative">
-        <img
-          className="flex-1 w-full h-full p-8 object-contain ml-8 md:ml-0"
-          src={selectedImage}
-        />
-        <ImageSelector
-          selectedImage={selectedImage}
-          onClick={setSelectedImage}
-          images={product.images}
-        />
-      </div>
-      <div className="px-4 py-2 md:bg-blue-100 flex-1 rounded-md w-full flex flex-col">
-        <span className="text-sm mb-2 inline-block font-medium text-zinc-700">
-          {product.name}
-        </span>
-        <div className="flex flex-col mb-2">
-          <span className="text-xl text-zinc-900 bold font-semibold">
-            {totalValue}
-          </span>
-          <span className="text-xs text-zinc-500 ">
-            Em até {product.price.installments}x de {installmentValue} sem juros
-          </span>
+    return (
+        <div className="flex-row w-full bg-white flex md:flex-col justify-center items-center flex-1 h-full rounded-md">
+            <div className="group w-56 h-48 flex items-center justify-center relative">
+                <img
+                    className="flex-1 w-full h-full p-8 object-contain ml-8 md:ml-0"
+                    src={selectedImage}
+                />
+                <ImageSelector
+                    selectedImage={selectedImage}
+                    onClick={setSelectedImage}
+                    images={product.images}
+                />
+            </div>
+            <div className="px-4 py-2 md:bg-blue-100 flex-1 rounded-md w-full flex flex-col">
+                <span className="text-sm mb-2 inline-block font-medium text-zinc-700">
+                    {product.name}
+                </span>
+                <div className="flex flex-col mb-2">
+                    <span className="text-xl text-zinc-900 bold font-semibold">
+                        {totalValue}
+                    </span>
+                    <span className="text-xs text-zinc-500 ">
+                        Em até {product.price.installments}x de{" "}
+                        {installmentValue} sem juros
+                    </span>
+                </div>
+                <button
+                    onClick={handleAddInCart}
+                    className="cursor-pointer w-full mt-auto flex items-center justify-center bg-cyan-500 text-white h-9 px-4 rounded-sm filter hover:brightness-105 transition">
+                    Adicionar ao carrinho
+                </button>
+            </div>
         </div>
-        <button
-          onClick={handleAddInCart}
-          className="cursor-pointer w-full mt-auto flex items-center justify-center bg-cyan-500 text-white h-9 px-4 rounded-sm filter hover:brightness-105 transition"
-        >
-          Adicionar ao carrinho
-        </button>
-      </div>
-    </div>
-  );
+    );
 }

@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  align-items: flex-start;
-  gap: 1rem;
-  /* column-gap: 0; */
-  justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-items: flex-start;
+    gap: 1rem;
+    /* column-gap: 0; */
+    justify-items: center;
 }
 
 @media (max-width: 767px) {
-  .grid-container {
-    display: flex;
-    flex-direction: column;
-  }
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+    }
 }
