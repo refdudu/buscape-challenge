@@ -1,9 +1,11 @@
 import { ShoppingCartProvider } from "@/contexts/ShoppingCartContext";
 import { Home } from "@/components/pages/Home";
+import { Toaster } from "react-hot-toast";
 
 export default function index() {
     return (
         <ShoppingCartProvider>
+            <Toaster />
             <Home />
         </ShoppingCartProvider>
     );
