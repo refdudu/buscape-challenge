@@ -5,18 +5,10 @@ import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { ProductI } from "@/interfaces/product-interface";
 
 export function Home() {
-    const { setIsDrawerOpen, setProductsInCart } = useShoppingCart();
+    const { setIsDrawerOpen, handleAddProduct } = useShoppingCart();
 
     function openDrawer() {
         setIsDrawerOpen(true);
-    }
-    function handleAddProduct(product: ProductI) {
-        setProductsInCart(p => {
-            const hasProduct = p.some(({ id }) => id === product.id);
-
-            if (!hasProduct) return [...p, product];
-            return p;
-        });
     }
 
     return (
