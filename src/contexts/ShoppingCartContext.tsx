@@ -17,7 +17,9 @@ interface ShoppingCartContextProps {
     productsInCart: ProductCartI[];
     setProductsInCart: Dispatch<SetStateAction<ProductCartI[]>>;
 
-    handleAddProduct: (product: ProductI) => void;
+    handleAddProductAmount: (product: ProductI) => void;
+    handleRemoveProductAmount: (productId: number) => void;
+    handleRemoveProduct: (productId: number) => void;
 }
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);
@@ -30,17 +32,31 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     const [productsInCart, setProductsInCart] = useState([] as ProductCartI[]);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-    function handleAddProduct(_product: ProductI) {
+    function handleAddProductAmount(_product: ProductI) {
         setProductsInCart(p => {
             const product = p.find(({ id }) => id === _product.id);
-
             if (!product) return [...p, { ..._product, amount: 1 }];
 
-            return p.map(_product =>
-                product.id === _product.id
-                    ? { ..._product, amount: _product.amount + 1 }
-                    : _product
-            );
+            return p.map(x => ({
+                ...x,
+                amount: product.id === x.id ? x.amount + 1 : x.amount
+            }));
+        });
+    }
+
+    function handleRemoveProduct(productId: number) {
+        setProductsInCart(p => p.filter(({ id }) => productId !== id));
+    }
+    function handleRemoveProductAmount(productId: number) {
+        setProductsInCart(p => {
+            const product = p.find(x => x.id === productId);
+            if (!product) return p;
+            if (product.amount === 1) return p.filter(x => x.id !== productId);
+
+            return p.map(x => ({
+                ...x,
+                amount: x.id === productId ? x.amount - 1 : x.amount
+            }));
         });
     }
 
@@ -51,8 +67,11 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
                 setIsDrawerOpen,
                 productsInCart,
                 setProductsInCart,
-                handleAddProduct
-            }}>
+                handleAddProductAmount,
+                handleRemoveProduct,
+                handleRemoveProductAmount
+            }}
+        >
             <ShoppingCartDrawer
                 isOpen={isDrawerOpen}
                 setIsOpen={setIsDrawerOpen}

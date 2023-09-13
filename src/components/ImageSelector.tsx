@@ -14,7 +14,8 @@ export function ImageSelector({
         <div
             className="absolute  gap-2 flex flex-col transition left-2
                 md:bottom-4 md:flex-row md:hidden md:group-hover:flex md:left-[50%] md:translate-x-[-50%]
-    ">
+    "
+        >
             {images.map(image => {
                 const isSelectedImage = selectedImage === image;
                 return (
@@ -24,7 +25,8 @@ export function ImageSelector({
             ${
                 isSelectedImage ? "bg-hover hover:cursor-not-allowed" : ""
             } cursor-pointer border-cyan-500 border transition rounded`}
-                        onClick={() => !isSelectedImage && onClick(image)}>
+                        onClick={() => !isSelectedImage && onClick(image)}
+                    >
                         <img
                             src={image}
                             className="flex-1 p-1 object-contain"

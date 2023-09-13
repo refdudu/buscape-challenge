@@ -1,5 +1,7 @@
 import { ProductI } from "@/interfaces/product-interface";
 import { useMemo, useState } from "react";
+
+import { Button } from "./Button";
 import { ImageSelector } from "./ImageSelector";
 
 interface ProductCardProps {
@@ -54,11 +56,7 @@ export function ProductCard({ product, handleAddInCart }: ProductCardProps) {
                         {installmentValue} sem juros
                     </span>
                 </div>
-                <button
-                    onClick={handleAddInCart}
-                    className="cursor-pointer w-full mt-auto flex items-center justify-center bg-cyan-500 text-white h-9 px-4 rounded-sm filter hover:brightness-105 transition">
-                    Adicionar ao carrinho
-                </button>
+                <Button onClick={handleAddInCart}>Adicionar ao carrinho</Button>
             </div>
         </div>
     );

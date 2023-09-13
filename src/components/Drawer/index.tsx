@@ -1,17 +1,38 @@
 import { X } from "@phosphor-icons/react";
 import React, { Dispatch, ReactNode, SetStateAction } from "react";
-
 import ModernDrawer from "react-modern-drawer";
 
 import "react-modern-drawer/dist/index.css";
 
-interface DrawerProps {
+interface ModernDrawerProps {
+    onClose?: () => void;
+    direction?: "left" | "right" | "top" | "bottom";
+    lockBackgroundScroll?: boolean;
+    children?: React.ReactNode;
+    duration?: number;
+    overlayOpacity?: number;
+    overlayColor?: string;
+    enableOverlay?: boolean;
+    style?: React.CSSProperties;
+    zIndex?: number;
+    size?: number | string;
+    className?: string;
+    customIdSuffix?: string;
+    overlayClassName?: string;
+}
+interface DrawerProps extends ModernDrawerProps {
     isOpen: boolean;
     setIsOpen: Dispatch<SetStateAction<boolean>>;
     children: ReactNode;
 }
 
-export function Drawer({ isOpen, setIsOpen, children }: DrawerProps) {
+export function Drawer({
+    isOpen,
+    setIsOpen,
+    children,
+    direction = "right",
+    ...props
+}: DrawerProps) {
     const toggleDrawer = () => {
         setIsOpen(prevState => !prevState);
     };
@@ -20,10 +41,11 @@ export function Drawer({ isOpen, setIsOpen, children }: DrawerProps) {
         <ModernDrawer
             open={isOpen}
             onClose={toggleDrawer}
-            direction="right"
             size={400}
             lockBackgroundScroll
-            duration={1000}>
+            duration={300}
+            {...{ ...props, direction }}
+        >
             <header className="py-4 px-4 flex flex-1 justify-end bg-zinc-300">
                 <X
                     onClick={toggleDrawer}
