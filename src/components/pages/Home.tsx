@@ -15,7 +15,6 @@ export function Home() {
     function openDrawer() {
         setIsDrawerOpen(true);
     }
-
     return (
         <div className="bg-zinc-100 h-screen">
             <header className="bg-cyan-500 w-full px-8">

@@ -1,31 +1,38 @@
 // import { DecodedIdToken } from "firebase-admin/auth";
 // import { NextApiRequest, NextApiResponse } from "next";
 
-// import { firebaseAdmin } from "../utils/firebase-admin";
+import { firebaseAdmin } from "@/api/utils/firebase";
+import { NextApiRequest, NextApiResponse } from "next";
 
-// export interface AuthMiddlewareRequest extends NextApiRequest {
-//     user?: DecodedIdToken;
-// }
+export interface AuthMiddlewareRequest extends NextApiRequest {
+    userId: string;
+}
 
-// const verifyIdToken = async (token: string) => {
-//     const decodedToken = await firebaseAdmin.auth().verifyIdToken(token);
-//     return decodedToken;
-// };
+const verifyIdToken = async (token: string) => {
+    try {
+        const _token = await firebaseAdmin.auth().verifyIdToken(token);
+        return _token;
+    } catch {}
+};
 
-// export const authMiddleware =
-//     (handler: (req: AuthMiddlewareRequest, res: NextApiResponse) => void) =>
-//     async (req: AuthMiddlewareRequest, res: NextApiResponse) => {
-//         const token = req.headers.authorization?.split("Bearer ")[1];
+export const authMiddleware = async (
+    req: AuthMiddlewareRequest,
+    res: NextApiResponse,
+    next: (req: AuthMiddlewareRequest, res: NextApiResponse) => void
+) => {
+    const token = req.headers.authorization?.split("Bearer ")[1];
+    if (!token) return res.status(401).json({ error: "Token not provided" });
 
-//         if (!token) {
-//             return res.status(401).json({ error: "Unauthorized" });
-//         }
+    const user = await verifyIdToken(token);
+    if (!user) return res.status(401).json({ error: "Token not valid" });
 
-//         try {
-//             const decodedToken = await verifyIdToken(token);
-//             req.user = decodedToken;
-//             return handler(req, res);
-//         } catch (error) {
-//             return res.status(403).json({ error: "Forbidden" });
-//         }
-//     };
+    try {
+        req.userId = user.uid;
+        return next(req, res);
+    } catch (error) {
+        return res.status(500).json({
+            error: JSON.stringify(error),
+            message: "Internal server error"
+        });
+    }
+};
