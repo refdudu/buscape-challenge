@@ -18,6 +18,6 @@ export class ShoppingCartProductValidator
             );
         }
 
-        return errors.length === 0;
+        return errors;
     }
 }

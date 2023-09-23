@@ -5,7 +5,10 @@ import {
     getAuth,
     onAuthStateChanged,
     signInWithPopup,
-    signOut as firebaseSignOut
+    signOut as firebaseSignOut,
+    signInWithRedirect,
+    Auth,
+    AuthProvider
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -32,11 +35,19 @@ export function UserProvider({ children }: UserProviderProps) {
         return () => unsubscribe();
     }, []);
 
+    function singInMethod(_auth: Auth, provider: AuthProvider) {
+        const screenWidth = window.innerWidth;
+        const isMobileDevice = screenWidth < 768;
+        if (isMobileDevice) return signInWithRedirect(_auth, provider);
+
+        return signInWithPopup(_auth, provider);
+    }
+
     async function signIn() {
         const auth = getAuth();
         const googleProvider = new GoogleAuthProvider();
         try {
-            const { user } = await signInWithPopup(auth, googleProvider);
+            const { user } = await singInMethod(auth, googleProvider);
 
             setUser(user);
         } catch {}
