@@ -34,7 +34,7 @@ export function Home() {
                 </div>
             </header>
 
-            <main className="pt-8 w-full px-8 overflow-auto h-[calc(100% - 3rem)]">
+            <main className="pt-8 w-full px-8 overflow-auto h-[calc(100%-3rem)]">
                 <div className="grid-container max-w-7xls">
                     {[...products, ...products].map(product => (
                         <ProductCard
