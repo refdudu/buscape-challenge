@@ -13,4 +13,4 @@ const yourFirebaseAdminConfig = {
 export const firebaseAdmin =
     alreadyCreatedAps.length === 0
         ? admin.initializeApp(yourFirebaseAdminConfig)
-        : alreadyCreatedAps[0];
+        : (alreadyCreatedAps[0] as admin.app.App);

@@ -13,9 +13,11 @@ export class ShoppingCartProductValidator
         }
 
         if (!product.amount || product.amount <= 0) {
-            errors.push("Amount must be greater than zero.");
+            errors.push(
+                `Product ${product.productId} has amount must be greater than zero.`
+            );
         }
 
-        return errors;
+        return errors.length === 0;
     }
 }

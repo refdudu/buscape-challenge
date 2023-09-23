@@ -1,4 +1,4 @@
 export interface ShoppingCartProductDTO {
-    productId: string;
+    productId: number;
     amount: number;
 }

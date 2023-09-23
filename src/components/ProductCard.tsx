@@ -7,9 +7,14 @@ import { ImageSelector } from "./ImageSelector";
 interface ProductCardProps {
     product: ProductI;
     handleAddInCart: () => void;
+    disabledShopButton: boolean;
 }
 
-export function ProductCard({ product, handleAddInCart }: ProductCardProps) {
+export function ProductCard({
+    product,
+    handleAddInCart,
+    disabledShopButton = false
+}: ProductCardProps) {
     const [image] = product.images;
     const [selectedImage, setSelectedImage] = useState(image);
 
@@ -56,7 +61,9 @@ export function ProductCard({ product, handleAddInCart }: ProductCardProps) {
                         {installmentValue} sem juros
                     </span>
                 </div>
-                <Button onClick={handleAddInCart}>Adicionar ao carrinho</Button>
+                <Button disabled={disabledShopButton} onClick={handleAddInCart}>
+                    Adicionar ao carrinho
+                </Button>
             </div>
         </div>
     );

@@ -4,6 +4,8 @@ interface BadgeProps {
 }
 
 export function Badge({ children, total }: BadgeProps) {
+    if (!total || total === 0) return children;
+
     return (
         <div className="relative">
             {total && (

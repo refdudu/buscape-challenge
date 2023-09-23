@@ -13,6 +13,7 @@ interface UserContextProps {
     signIn: () => Promise<void>;
     signOut: () => Promise<void>;
     user: User | null;
+    isAuthenticated: boolean;
 }
 const UserContext = createContext({} as UserContextProps);
 
@@ -22,6 +23,7 @@ interface UserProviderProps {
 
 export function UserProvider({ children }: UserProviderProps) {
     const [user, setUser] = useState<User | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         const auth = getAuth();
@@ -49,14 +51,20 @@ export function UserProvider({ children }: UserProviderProps) {
     async function changeHeader() {
         if (user) {
             const token = await user.getIdToken();
+            setIsAuthenticated(true);
             api.defaults.headers.authorization = `Bearer ${token}`;
+        } else {
+            api.defaults.headers.authorization = ``;
+            setIsAuthenticated(false);
         }
     }
     useEffect(() => {
         changeHeader();
     }, [user]);
     return (
-        <UserContext.Provider value={{ signIn, user, signOut }}>
+        <UserContext.Provider
+            value={{ signIn, user, signOut, isAuthenticated }}
+        >
             {children}
         </UserContext.Provider>
     );
