@@ -2,7 +2,9 @@ import { ProductCard } from "@/components/ProductCard";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 import { useUser } from "@/contexts/UserContext";
 import products from "@/items.json";
+import { api } from "@/utils/api";
 import { ShoppingCartSimple } from "@phosphor-icons/react";
+import { use, useEffect } from "react";
 
 import { Badge } from "../Badge";
 import { Profile } from "../Profile";
@@ -12,9 +14,16 @@ export function Home() {
     const { setIsDrawerOpen, handleAddProductAmount, productsInCart } =
         useShoppingCart();
 
+    const getProducts = async () => {
+        const { data } = await api.get("products/get");
+        console.log(data);
+    };
     function openDrawer() {
         setIsDrawerOpen(true);
     }
+    useEffect(() => {
+        getProducts();
+    }, []);
     return (
         <div className="bg-zinc-100 h-screen">
             <header className="bg-cyan-500 w-full px-8 max-h-[3rem]">
@@ -36,7 +45,7 @@ export function Home() {
 
             <main className="pt-8 w-full px-8 overflow-auto h-[calc(100%-3rem)]">
                 <div className="grid-container max-w-7xls">
-                    {[...products, ...products].map(product => (
+                    {products.map(product => (
                         <ProductCard
                             handleAddInCart={() =>
                                 handleAddProductAmount(product)
