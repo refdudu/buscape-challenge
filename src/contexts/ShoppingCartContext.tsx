@@ -1,6 +1,7 @@
 import { ShoppingCartDrawer } from "@/components/ShoppingCartDrawer";
 import { ShoppingCartProductDTO } from "@/DTOs/ShoppingCartProductDTO";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useSocket } from "@/hooks/useSocket";
 import { ProductCartI as ShoppingCartProductI } from "@/interfaces/product-cart-interface";
 import { ProductI } from "@/interfaces/product-interface";
 import products from "@/items.json";
@@ -30,6 +31,7 @@ interface ShoppingCartContextProps {
     handleRemoveProduct: (productId: number) => void;
     handleAddProductAmount: (product: ProductI) => void;
     handleRemoveProductAmount: (productId: number) => void;
+    getShoppingCartProduct: () => Promise<void>;
 }
 
 const ShoppingCartContext = createContext({} as ShoppingCartContextProps);
@@ -39,6 +41,8 @@ interface ShoppingCartProviderProps {
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+    const { socket, isConnected } = useSocket();
+
     const { isAuthenticated } = useUser();
     const [productsInCart, setProductsInCart] = useState(
         [] as ShoppingCartProductI[]
@@ -108,36 +112,11 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         getShoppingCartProduct();
     }, [isAuthenticated]);
 
-    // async function handleSetProduct(product: ShoppingCartProductI) {
-    //     if (product.amount === 0) return handleRemoveProduct(product.id);
-
-    //     try {
-    //         const { amount, id } = product;
-    //         const shoppingCartProduct: ShoppingCartProductDTO = {
-    //             amount,
-    //             productId: id
-    //         };
-    //         await addProduct(shoppingCartProduct);
-    //         setProductsInCart(p =>
-    //             p.map(x => (x.id === product.id ? product : x))
-    //         );
-    //     } catch {}
-    // }
-    // async function handleAddProduct(product: ProductI) {
-    //     try {
-    //         const shoppingCartProductDto: ShoppingCartProductDTO = {
-    //             amount: 1,
-    //             productId: product.id
-    //         };
-
-    //         await addProduct(shoppingCartProductDto);
-
-    //         const shoppingCartProduct = { ...product, amount: 1 };
-    //         setProductsInCart(p => [...p, shoppingCartProduct]);
-    //     } catch {}
-    // }
-    // const addProduct = (shoppingCartProduct: ShoppingCartProductDTO) =>
-    //     api.post("/shopping-cart/add", shoppingCartProduct);
+    useEffect(() => {
+        if (!isConnected || !socket) return;
+        socket.on("shoppingCartProducts", console.log);
+        console.log(socket);
+    }, [isConnected]);
 
     return (
         <ShoppingCartContext.Provider
@@ -147,10 +126,9 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
                 productsInCart,
                 setProductsInCart,
                 handleRemoveProduct,
-                // handleSetProduct,
-                // handleAddProduct
                 handleAddProductAmount,
-                handleRemoveProductAmount
+                handleRemoveProductAmount,
+                getShoppingCartProduct
             }}
         >
             <ShoppingCartDrawer
